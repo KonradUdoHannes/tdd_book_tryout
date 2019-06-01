@@ -7,7 +7,9 @@ from accounts.models import Token
 
 def send_login_email(request):
     email = request.POST['email']
-    token = Token.objects.create(email=email)
+    token = Token.objects.get(email=email)
+    if not token:
+        token = Token.objects.create(email=email)
     url = request.build_absolute_uri(
             reverse('login') + '?token=' + str(token.uid)
     )
