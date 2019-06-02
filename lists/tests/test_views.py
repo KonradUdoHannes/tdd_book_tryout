@@ -23,10 +23,6 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertIsInstance(response.context['form'],ItemForm)
 
-#    def test_only_saves_items_when_necessary(self):
-#        self.client.get('/')
-#        self.assertEqual(Item.objects.count(),0)
-
 class ListViewTest(TestCase):
 
     def test_uses_list_template(self):
@@ -152,3 +148,9 @@ class NewListTest(TestCase):
         self.assertContains(response, expected_error)
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Item.objects.all().count(), 1)
+
+class MyListTest(TestCase):
+
+    def test_my_lists_url_renders_my_lists_template(self):
+        response = self.client.get('/lists/users/a@b.com/')
+        self.assertTemplateUsed(response, 'my_lists.html')
