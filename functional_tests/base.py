@@ -2,7 +2,7 @@ import os
 import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import WebDriverException,NoSuchElementException
 from .server_tools import reset_database
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -30,7 +30,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             while True:
                 try:
                     return fn(*args,**kwargs)
-                except (AssertionError, WebDriverException) as e:
+                except (AssertionError, WebDriverException,NoSuchElementException) as e:
                     if time.time() - start_time > FunctionalTest.WAIT_MAX:
                         raise e
                     time.sleep(0.5)

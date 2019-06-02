@@ -6,7 +6,7 @@ def _get_manage_dot_py(host):
 
 def reset_database(host):
     manage_dot_py = _get_manage_dot_py(host)
-    with settings(host_string=f'ubuntu@{host}'):
+    with settings(host_string=f'ubuntu@{host}',use_ssh_config=True):
         run(f'{manage_dot_py} flush --noinput')
 
 
